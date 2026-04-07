@@ -35,16 +35,8 @@ export class MenuPage {
     await this.coffeeCupLocator(coffeeName).click();
   }
 
-  async clickCappucinoCup() {
-    await this.cappuccinoCup.click();
-  }
-
-  async clickEspressoCup() {
-    await this.espressoCup.click();
-  }
-
-  async clickAmericanoCup() {
-    await this.americanoCup.click();
+  getCoffeeItem(coffeeName) {
+    return this.page.getByRole('heading', { name: `${coffeeName} $` });
   }
 
   async clickCartLink() {
@@ -63,15 +55,11 @@ export class MenuPage {
     await expect(this.totalCheckout).toContainText(value);
   }
 
-  async assertCappuccinoCupCostHasValue(value) {
-    await expect(this.cappuccinoCupCost).toContainText(value);
-  }
-
-  async assertEspressoCupCostHasValue(value) {
-    await expect(this.espressoCupCost).toContainText(value);
-  }
-
   async assertPromoMessageIsVisible() {
     await expect(this.promoMessage).toBeVisible();
+  }
+
+  async assertCupCostHasValue(coffeeName, coffeePrice) {
+    await expect(this.getCoffeeItem(coffeeName)).toContainText(coffeePrice);
   }
 }
